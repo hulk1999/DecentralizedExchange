@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Decentralized Exchange</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+  <link type="text/css" rel="stylesheet" href="assets/fontawesome/css/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,600" rel="stylesheet">
+  <script src="libraries/jquery-3.4.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="left-content">
+
+  	<h1 class="main-title">Decentralized Exchange</h1>
+
+  	<div id="account-container" class="inactive">
+  		<h2 id="account-title">Wallet</h2>
+  		<div class="input-title">Address:</div>
+  		<div id="account-address">Import wallet using one of the provided method</div>
+  		<div class="input-title">Tokens:</div>
+  		<div id="account-token-list">
+  			<div class="token-balance">
+  				<div class="token-label"><i class="fab fa-ethereum token-icon"></i> Ether</div>
+  				<div class="token-amount">
+  					<span id="eth-amount">Wallet not imported</span>
+  					<div class="token-unit">ETH</div>
+  				</div>
+  				<div class="token-semicolon">:</div>
+  			</div>
+  			<div class="token-balance">
+  				<div class="token-label"><i class="fas fa-mug-hot token-icon"></i> Coffee</div>
+  				<div class="token-amount">
+  					<span id="cfe-amount">Wallet not imported</span>
+  					<div class="token-unit">CFE</div></div>
+  				<div class="token-semicolon">:</div>
+  			</div>
+  			<div class="token-balance">
+  				<div class="token-label"><i class="fab fa-envira token-icon"></i> Tea</div>
+  				<div class="token-amount">
+  					<span id="tea-amount">Wallet not imported</span>
+  					<div class="token-unit">TEA</div>
+  				</div>
+  				<div class="token-semicolon">:</div>
+  			</div>
+  		</div>
+  		<div id="status-test"></div>
+  	</div>
+
+  	<div class="import-account">
+      <div class="import-account__title">Connect with</div>
+      <div class="import-account__container">
+        <div class="import-account__item" id="import-metamask">
+          <div class="import-account__icon metamask"></div>
+          <div class="import-account__name">METAMASK</div>
+        </div>
+
+        <div class="import-account__item import-account__item--inactive" id="import-keystore">
+          <div class="import-account__icon keystore"></div>
+          <div class="import-account__name">KEYSTORE</div>
+        </div>
+
+        <div class="import-account__item import-account__item--inactive" id="import-private-key">
+          <div class="import-account__icon private-key"></div>
+          <div class="import-account__name">PRIVATE KEY</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="main-content inactive">
+
+    <div class="tab-container">
+      <div class="tab">
+        <div class="tab__item tab__item--active" data-content-id="swap">SWAP</div>
+        <div class="tab__item" data-content-id="transfer">TRANSFER</div>
+      </div>
+    </div>
+
+    <div class="swap active" id="swap">
+      <div class="input-container">
+        <label class="input-title" for="swap-source-amount">From:</label>
+        <div class="input-group">
+          <div class="dropdown">
+            <div class="dropdown__trigger">
+              <span class="selected-target" id="selected-src-symbol">Loading...</span>
+              <div class="dropdown__triangle"></div>
+            </div>
+            <div class="dropdown__content"></div>
+          </div>
+          <input class="input-item" id="swap-source-amount" type="text" placeholder="0"/>
+        </div>
+      </div>
+
+      <div class="swap__icon" id="swap-icon"></div>
+
+      <div class="input-container">
+        <div class="input-title">To:</div>
+        <div class="input-group">
+          <div class="dropdown">
+            <div class="dropdown__trigger">
+              <span class="selected-target" id="selected-dest-symbol">Loading...</span>
+              <div class="dropdown__triangle"></div>
+            </div>
+            <div class="dropdown__content">
+            </div>
+          </div>
+          <div class="input-placeholder" id="swap-dest-amount">0</div>
+        </div>
+        <div class="swap__rate">1 <span id="rate-src-symbol">Loading...</span> = <span id="exchange-rate">...</span> <span id="rate-dest-symbol">Loading...</span></div>
+      </div>
+
+      <div class="button modal-trigger" data-modal-id="confirm-swap-modal" id="swap-button">Swap Now</div>
+    </div>
+
+    <div class="transfer" id="transfer">
+      <div class="input-container">
+        <label class="input-title" for="transfer-source-amount">From:</label>
+        <div class="input-group">
+          <div class="dropdown">
+            <div class="dropdown__trigger">
+              <span class="selected-target" id="selected-transfer-token">Loading...</span>
+              <div class="dropdown__triangle"></div>
+            </div>
+            <div class="dropdown__content"></div>
+          </div>
+          <input class="input-item" id="transfer-source-amount" type="text"/>
+        </div>
+      </div>
+
+      <div class="input-container input-container--mt">
+        <label class="input-title" for="transfer-address">To Address:</label>
+        <div class="input-group">
+          <input class="input-item input-item--single" id="transfer-address" type="text"/>
+        </div>
+      </div>
+
+      <div class="button modal-trigger" data-modal-id="confirm-transfer-modal" id="transfer-button">Transfer Now</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="modal" id="confirm-swap-modal">
+  <div class="modal__content" id="model-content-confirm-swap">
+  	<div id="modal-confirm-text">Are you sure you want to trade<br>
+  		<span class="modal-amount"><span id="modal-src-amount"></span> <span id="modal-src-token"></span></span> for
+  		<span class="modal-amount"><span id="modal-dest-amount"></span> <span id="modal-dest-token"></span></span> ?
+  	</div>
+  	<div id="modal-button-container">
+  		<div class="modal-button" id="modal-button-confirm-swap">YES</div>
+  		<div class="modal-button" id="modal-button-cancel-swap">CANCEL</div>
+  	</div>
+  </div>
+  <div class="modal__content" id="model-content-status-swap">
+  </div>
+</div>
+
+<div class="modal" id="confirm-transfer-modal">
+  <div class="modal__content" id="model-content-confirm-transfer">
+  	<div id="modal-confirm-text">Are you sure you want to transfer<br>
+  		<span class="modal-amount"><span id="modal-transfer-amount"></span> <span id="modal-transfer-token"></span></span> to address 
+  		<span class="modal-amount"><span id="modal-transfer-address"></span> ?
+  	</div>
+  	<div id="modal-button-container">
+  		<div class="modal-button" id="modal-button-confirm-transfer">YES</div>
+  		<div class="modal-button" id="modal-button-cancel-transfer">CANCEL</div>
+  	</div>
+  </div>
+  <div class="modal__content" id="model-content-status-transfer">
+  </div>
+</div>
+
+<script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+node:
+- pass: 1
+- acc1: 0xd4416dc37bEf333f62a35a4CfcB776D6435953b3
+- acc2: 0xEd678abb420e080AA4A3bA27Ee6bbF9629B5D2Ec | 82f87106c59009703872c7170e30ae00d37ad9c81057253ef92e566c4684d268
+metamask:
+- pass: 12345678
+- acc1: 0xAFDD0E440c9Cd5E86818aD5EeF19D8a778af5f02 | knife whale weapon profit improve crouch try lonely ribbon issue shop unveil
+- acc2: 0xEd678abb420e080AA4A3bA27Ee6bbF9629B5D2Ec
+
+CFE: 0x8aa38F8D598a03210FE41F7da1202131D7A59da2
+TEA: 0xfB0751c2B1CAD2B8193Deb27ccA4857b4E7FaE98
+Exchange: 0x582f202C9fC0aCe16c8575B71a19B4c250A271ed
+
+eth.getCode()
+====================================================
+
+===== node =====
+
+geth --datadir "node1" account new
+geth --datadir "node1" init genesis.json
+geth --identity "node1" --rpc --rpcport "8000" --rpccorsdomain "*" --datadir "node1" --port "30303" --nodiscover --rpcapi "db,eth,net,web3,personal,miner,admin" --networkid 2020 --nat "any" --allow-insecure-unlock --ethstats node1:hn@localhost:3000 --ipcdisable
+
+===== client =====
+
+geth attach http://127.0.0.1:8000
+exit
+
+admin.nodeInfo.enode
+admin.addPeer("<enode>")
+net.peerCount
+
+eth.accounts
+eth.getBalance(eth.accounts[0])
+web3.fromWei(eth.getBalance(eth.accounts[0]))
+
+personal.unlockAccount(eth.accounts[0])
+miner.setEtherbase(eth.accounts[0])
+miner.start()
+miner.stop()
+eth.blockNumber
+
+eth.sendTransaction({from: "0xd4416dc37bef333f62a35a4cfcb776d6435953b3", to: "0xEd678abb420e080AA4A3bA27Ee6bbF9629B5D2Ec", value: web3.toWei(80, "ether")})
+
+var cont = eth.contract(abi).at('');
+
+===== stats =====
+
+set WS_SECRET=hn&& npm start
